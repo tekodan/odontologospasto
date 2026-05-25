@@ -1,0 +1,244 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'Inicio', description = 'Odontólogos Pasto — Especialistas en salud dental y estética orofacial' } = Astro.props;
+
+const navItems = [
+  { label: 'Inicio', href: '/' },
+  {
+    label: 'Servicios', href: '#',
+    children: [
+      { label: 'Endodoncia', href: '/servicios/endodoncia' },
+      { label: 'Periodoncia', href: '/servicios/periodoncia' },
+      { label: 'Estética Dental', href: '/servicios/estetica-dental' },
+      { label: 'Rehabilitación Oral', href: '/servicios/rehabilitacion-oral' },
+      { label: 'Cirugía Oral y Maxilofacial', href: '/servicios/cirugia-oral-y-maxilofacial' },
+      { label: 'Implantología Dental', href: '/servicios/implantologia-dental' },
+      { label: 'Ortodoncia', href: '/servicios/ortodoncia' },
+      { label: 'Odontopediatría', href: '/servicios/odontopediatria' },
+      { label: 'Estética Orofacial', href: '/servicios/estetica-orofacial' },
+    ]
+  },
+  { label: 'Contacto', href: '/contacto' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="es-CO">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Odontólogos Pasto</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={`${title} | Odontólogos Pasto`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://odontologospasto.com.co/logo.png" />
+    <meta property="og:url" content={`https://odontologospasto.com.co${Astro.url.pathname}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | Odontólogos Pasto`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://odontologospasto.com.co/logo.png" />
+    <link rel="icon" href="/favicon.png" />
+    <link rel="canonical" href={`https://odontologospasto.com.co${Astro.url.pathname}`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" integrity="sha384-l8f0VcPi/M1iHPv8egOnY/15TDwqgbOR1anMIJWvU6nLRgZVLTLSaNqi/TOoT5Fh" crossorigin="anonymous"></script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "Odontólogos Pasto - Maryllen Guevara Márquez",
+      "description": "Clínica odontológica especializada en salud oral y estética orofacial en Pasto, Colombia",
+      "url": "https://odontologospasto.com.co",
+      "telephone": "+573105367290",
+      "email": "guevaramarquezmaryllen071448@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Cra 34 #19-76",
+        "addressLocality": "Pasto",
+        "addressRegion": "Nariño",
+        "addressCountry": "CO"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "13:00" }
+      ],
+      "areaServed": "Pasto, Nariño, Colombia",
+      "sameAs": ["https://www.instagram.com/dra.maryllen_guevara/"]
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Odontólogos Pasto - Maryllen Guevara Márquez",
+      "image": "https://odontologospasto.com.co/logo.png",
+      "address": { "@type": "PostalAddress", "streetAddress": "Cra 34 #19-76", "addressLocality": "Pasto", "addressRegion": "Nariño", "addressCountry": "CO" },
+      "telephone": "+573105367290",
+      "priceRange": "$$"
+    })} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-text-dark">
+    <!-- Top info bar -->
+    <div class="bg-primary text-white text-xs hidden lg:block" x-data="{ infoIndex: 0 }" x-init="setInterval(() => infoIndex = (infoIndex + 1) % 3, 4000)">
+      <div class="max-w-6xl mx-auto px-4 py-1.5 flex items-center justify-center gap-3">
+        <template x-for="(item, i) in [
+          {icon:'clock',title:'Lunes a Viernes 9AM-7PM, Sábados 8AM-1PM',subtitle:'Nuestros horarios'},
+          {icon:'phone',title:'+573105367290',subtitle:'Agenda tu cita'},
+          {icon:'map-pin',title:'Cra 34 #19-76 302 Pasto, Nariño',subtitle:'Colombia'}
+        ]" :key="i">
+          <div x-show="infoIndex === i" x-transition.opacity class="flex items-center gap-2 whitespace-nowrap">
+            <span class="text-white/80 text-xs">
+              <template x-if="item.icon === 'clock'"><svg class="w-3.5 h-3.5 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></template>
+              <template x-if="item.icon === 'phone'"><svg class="w-3.5 h-3.5 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></template>
+              <template x-if="item.icon === 'map-pin'"><svg class="w-3.5 h-3.5 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></template>
+            </span>
+            <span x-text="item.title" class="font-medium"></span>
+            <span class="text-white/70 hidden sm:inline">—</span>
+            <span x-text="item.subtitle" class="text-white/70 hidden sm:inline"></span>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Header principal -->
+    <header class="bg-white shadow-sm sticky top-0 z-40" x-data="{ menuOpen: false }">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-center justify-between" style="height: 91px;">
+          <!-- Logo -->
+          <a href="/" class="flex items-center">
+            <img src="/logo.png" alt="Odontólogos Pasto" class="h-[52px] w-auto" />
+          </a>
+
+          <!-- Desktop nav -->
+          <nav class="hidden lg:flex items-center gap-8">
+            {navItems.map(item => (
+              <div class="relative group">
+                {item.children ? (
+                  <>
+                    <span class="text-sm font-bold text-primary cursor-pointer py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-teal group-hover:after:w-full after:transition-all">
+                      {item.label}
+                      <svg class="w-3 h-3 inline ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+                    </span>
+                    <div class="absolute top-full left-0 mt-1 bg-white border border-border rounded-lg shadow-lg py-2 min-w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                      {item.children.map(child => (
+                        <a href={child.href} class="block px-5 py-2.5 text-sm text-[#777] hover:text-primary hover:bg-bg-light transition-colors">{child.label}</a>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <a href={item.href} class="text-sm font-bold text-primary py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-teal hover:after:w-full after:transition-all">
+                    {item.label}
+                  </a>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          <!-- Desktop CTA -->
+          <div class="hidden lg:flex items-center gap-4">
+            <a href="https://www.instagram.com/dra.maryllen_guevara/" target="_blank" rel="noopener noreferrer" class="bg-primary hover:bg-primary-light text-white text-xs font-bold px-5 py-2.5 rounded transition-colors uppercase tracking-wider">
+              Agendar Cita
+            </a>
+          </div>
+
+          <!-- Mobile hamburger -->
+          <button class="lg:hidden p-2" @click="menuOpen = !menuOpen" aria-label="Menú">
+            <svg x-show="!menuOpen" class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            <svg x-show="menuOpen" class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
+
+        <!-- Mobile menu -->
+        <div x-show="menuOpen" x-transition class="lg:hidden pb-6 border-t border-border" x-cloak>
+          <div class="flex flex-col gap-1 pt-4">
+            {navItems.map(item => (
+              <div>
+                {item.children ? (
+                  <div x-data="{ subOpen: false }">
+                    <button @click="subOpen = !subOpen" class="w-full flex items-center justify-between px-3 py-3 text-sm font-bold text-primary uppercase tracking-wide">
+                      {item.label}
+                      <svg :class="subOpen ? 'rotate-180' : ''" class="w-3 h-3 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div x-show="subOpen" x-transition class="ml-3 border-l-2 border-border pl-4 mb-2 flex flex-col gap-1">
+                      {item.children.map(child => (
+                        <a href={child.href} class="px-3 py-2 text-sm text-[#777] hover:text-primary transition-colors">{child.label}</a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <a href={item.href} class="block px-3 py-3 text-sm font-bold text-primary uppercase tracking-wide">{item.label}</a>
+                )}
+              </div>
+            ))}
+            <div class="mt-4 px-3">
+              <a href="https://www.instagram.com/dra.maryllen_guevara/" target="_blank" rel="noopener noreferrer" class="block text-center bg-primary hover:bg-primary-light text-white text-xs font-bold px-5 py-3 rounded transition-colors uppercase tracking-wider">
+                Agendar Cita
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="bg-primary text-white">
+      <div class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-3 gap-8">
+          <div>
+            <img src="/logo-light.png" alt="Odontólogos Pasto" class="h-14 w-auto mb-4" style="filter: brightness(0) invert(1);" />
+            <p class="text-white/80 text-sm">Clínica odontológica especializada en salud oral y estética orofacial. Brindamos atención integral y de calidad en el corazón de Pasto.</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-white/90">Servicios</h4>
+            <div class="grid grid-cols-2 gap-2 text-sm text-white/70">
+              <a href="/servicios/endodoncia" class="hover:text-white transition-colors">Endodoncia</a>
+              <a href="/servicios/periodoncia" class="hover:text-white transition-colors">Periodoncia</a>
+              <a href="/servicios/ortodoncia" class="hover:text-white transition-colors">Ortodoncia</a>
+              <a href="/servicios/implantologia-dental" class="hover:text-white transition-colors">Implantología</a>
+              <a href="/servicios/estetica-dental" class="hover:text-white transition-colors">Estética Dental</a>
+              <a href="/servicios/rehabilitacion-oral" class="hover:text-white transition-colors">Rehabilitación Oral</a>
+              <a href="/servicios/cirugia-oral-y-maxilofacial" class="hover:text-white transition-colors">Cirugía Oral</a>
+              <a href="/servicios/estetica-orofacial" class="hover:text-white transition-colors">Estética Orofacial</a>
+              <a href="/servicios/odontopediatria" class="hover:text-white transition-colors">Odontopediatría</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-white/90">Contacto</h4>
+            <div class="text-sm text-white/70 space-y-2">
+              <p>Cra 34 #19-76, Pasto, Nariño</p>
+              <p>Tel: +57 310 536 7290</p>
+              <p>Email: guevaramarquezmaryllen071448@gmail.com</p>
+              <p>Lun-Vie: 9:00 AM - 7:00 PM</p>
+              <p>Sáb: 8:00 AM - 1:00 PM</p>
+            </div>
+            <div class="flex items-center gap-4 mt-6">
+              <a href="https://www.facebook.com/DRA.MARYLLENGUEVARA" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" aria-label="Facebook">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+              </a>
+              <a href="https://www.instagram.com/dra.maryllen_guevara/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" aria-label="Instagram">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-white/15 mt-8 pt-6 text-center text-sm text-white/50">
+          &copy; {new Date().getFullYear()} Odontólogos Pasto — Maryllen Guevara Márquez<br/>
+          <span class="text-white/30 text-xs">Página hecha por <a href="https://danialva.com" target="_blank" rel="noopener noreferrer" class="hover:text-white/50 transition-colors">danialva.com</a></span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- WhatsApp floating -->
+    <a href="https://api.whatsapp.com/send?phone=573105367290&text=%C2%BFEn%20qu%C3%A9%20podemos%20ayudarte%3F" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 hover:scale-110 transition-all z-50" aria-label="WhatsApp">
+      <svg class="w-7 h-7 fill-current" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    </a>
+  </body>
+</html>

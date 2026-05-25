@@ -1,0 +1,45 @@
+---
+export interface Props {
+  videoUrl: string;
+  poster?: string;
+  class?: string;
+}
+
+const { videoUrl, poster = '', class: className = '' } = Astro.props;
+
+const youtubeId = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/.*v=)([^&?/]+)/)?.[1] || '';
+---
+
+<div class:list={['relative group cursor-pointer', className]} x-data="{ open: false }">
+  <div class="relative" @click="open = true">
+    {poster ? (
+      <img src={poster} alt="Video" class="w-full rounded-xl shadow-lg" />
+    ) : (
+      <div class="w-full aspect-video bg-accent/20 rounded-xl flex items-center justify-center">
+        <span class="text-accent text-sm">Video institucional</span>
+      </div>
+    )}
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+        <svg class="w-7 h-7 text-white ml-1" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="8,5 19,12 8,19"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <template x-if="open">
+    <div x-transition.opacity class="fixed inset-0 z-50 flex items-center justify-center bg-black/70" @click.self="open = false" x-cloak>
+      <div class="relative w-full max-w-4xl mx-4 aspect-video">
+        <button @click="open = false" class="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300 transition-colors">&times;</button>
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+          class="w-full h-full rounded-xl shadow-2xl"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </template>
+</div>

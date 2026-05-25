@@ -1,17 +1,242 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import FeatureCard from '../components/FeatureCard.astro';
+import VideoPopup from '../components/VideoPopup.astro';
+import TestimonialCarousel from '../components/TestimonialCarousel.astro';
 
+const services = (await getCollection('services'))
+  .filter(s => s.data.published);
+
+const serviceImages: Record<string, string> = {
+  'endodoncia': '/images/servicios/endodoncia.jpg',
+  'periodoncia': '/images/servicios/periodoncia.jpeg',
+  'estetica-dental': '/images/servicios/estetica-dental.jpeg',
+  'rehabilitacion-oral': '/images/servicios/rehabilitacion-oral.jpeg',
+  'cirugia-oral-y-maxilofacial': '/images/servicios/cirugia-oral-y-maxilofacial.jpg',
+  'implantologia-dental': '/images/servicios/implantologia-dental.jpg',
+  'ortodoncia': '/images/servicios/ortodoncia.jpg',
+  'odontopediatria': '/images/servicios/odontopediatria.jpg',
+  'estetica-orofacial': '/images/servicios/estetica-orofacial.jpg',
+};
+
+const testimonials = [
+  {
+    name: 'Doña María Elena Rosero',
+    text: 'Vine desde el corregimiento de Buesaquillo porque me recomendaron a la doctora Maryllen. Me hicieron una rehabilitación oral completa y quedé feliz. La atención es de primer nivel y el consultorio muy aseado. ¡Mil gracias, doctora!',
+    role: 'Ama de casa',
+  },
+  {
+    name: 'Don Carlos Andrés Moncayo',
+    text: 'Llegué con un dolor de muela terrible un viernes en la tarde y me atendieron de inmediato. La endodoncia fue rapidita y sin dolor. En Pasto no hay otra clínica con esa calidad humana y profesionalismo. ¡Recomendadísima!',
+    role: 'Comerciante',
+  },
+  {
+    name: 'Laura Daniela Villota',
+    text: 'Mis dos hijos son pacientes de odontopediatría y les fascina venir. La doctora Maryllen tiene una paciencia increíble con los niños, les explica todo con cariño y nunca salen asustados. Los tratamientos han sido excelentes.',
+    role: 'Madre de familia',
+  },
+  {
+    name: 'Don Fernando Paredes',
+    text: 'Siempre le tuve miedo al odontólogo, pero desde que conocí esta clínica eso cambió. Me realizaron implantes dentales y el proceso fue muy profesional. Hoy puedo sonreír sin pena en las reuniones familiares. ¡Dios les pague!',
+    role: 'Pensionado',
+  },
+  {
+    name: 'Andrea Benavides',
+    text: 'Me hice el diseño de sonrisa con carillas de cerámica y fue la mejor decisión. La doctora Maryllen me explicó todo el proceso con detalle. Mis amigas en el trabajo no paran de preguntarme dónde me atendí. ¡Sonrisa pastusa de exportación!',
+    role: 'Administradora de empresas',
+  },
+  {
+    name: 'Familia Jurado Ortega',
+    text: 'Desde hace tres años toda la familia nos atendemos aquí. Ortodoncia, limpiezas, calzas, de todo. El servicio es excelente y los precios justos. Nos gusta que siempre usan tecnología moderna y todo impecable. La mejor clínica de Pasto.',
+    role: 'Pacientes frecuentes',
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <!-- Sección 1: Hero carrusel de imágenes -->
+  <section class="relative overflow-hidden min-h-[550px] md:min-h-[650px] flex items-center" x-data="{ heroSlide: 0, heroTotal: 3 }" x-init="setInterval(() => { heroSlide = (heroSlide + 1) % heroTotal }, 5000)" >
+    <!-- Imagen 1: Doctora -->
+    <div class="absolute inset-0" x-show="heroSlide === 0"
+      x-transition:enter="transition ease-out duration-1000"
+      x-transition:enter-start="opacity-0 scale-105"
+      x-transition:enter-end="opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-700"
+      x-transition:leave-start="opacity-100 scale-100"
+      x-transition:leave-end="opacity-0 scale-105">
+      <img src="/IMG_2308-1-scaled.jpg" alt="Dra. Maryllen Guevara Márquez" class="w-full h-full object-cover object-[50%_20%] md:object-[50%_15%] animate-ken-burns" />
+    </div>
+    <!-- Imagen 2: Instalaciones -->
+    <div class="absolute inset-0" style="display: none" x-show="heroSlide === 1"
+      x-transition:enter="transition ease-out duration-1000"
+      x-transition:enter-start="opacity-0 scale-105"
+      x-transition:enter-end="opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-700"
+      x-transition:leave-start="opacity-100 scale-100"
+      x-transition:leave-end="opacity-0 scale-105">
+      <img src="/images/clinica/IMG_2399.jpg" alt="Consultorio odontológico" loading="lazy" class="w-full h-full object-cover object-center animate-ken-burns" />
+    </div>
+    <!-- Imagen 3: Instalaciones -->
+    <div class="absolute inset-0" style="display: none" x-show="heroSlide === 2"
+      x-transition:enter="transition ease-out duration-1000"
+      x-transition:enter-start="opacity-0 scale-105"
+      x-transition:enter-end="opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-700"
+      x-transition:leave-start="opacity-100 scale-100"
+      x-transition:leave-end="opacity-0 scale-105">
+      <img src="/images/clinica/IMG_2440.jpg" alt="Equipos odontológicos modernos" loading="lazy" class="w-full h-full object-cover object-center animate-ken-burns" />
+    </div>
+    <!-- Overlay suave para legibilidad -->
+    <div class="absolute inset-0 bg-gradient-to-r from-white/85 via-white/60 to-transparent"></div>
+    <!-- Contenido -->
+    <div class="relative max-w-6xl mx-auto px-4 py-20 w-full z-10">
+      <div class="max-w-xl">
+        <span class="text-sm font-bold uppercase tracking-widest text-primary mb-4 block" style="letter-spacing: 1.75px;">Por qué escogernos</span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mt-3 mb-4 leading-tight text-[#002345]">
+          Crea tu mejor<br/>versión
+        </h1>
+        <p class="text-lg md:text-xl text-[#486683] font-semibold mb-2">Los Mejores Especialistas Dentales en Pasto</p>
+        <p class="text-base text-gray-600 mb-8 max-w-md">Calidad y Compromiso en Odontología — Dra. Maryllen Guevara Márquez</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="https://api.whatsapp.com/send?phone=573105367290&text=%C2%BFEn%20qu%C3%A9%20podemos%20ayudarte%3F" target="_blank" rel="noopener noreferrer" class="bg-primary hover:bg-primary-light text-white font-semibold px-8 py-3.5 rounded-full transition-colors shadow-md">
+            Agendar Cita
+          </a>
+          <a href="#servicios" class="border-2 border-primary text-primary font-semibold px-8 py-3.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+            Ver Servicios
+          </a>
+        </div>
+        <!-- Dots de navegación -->
+        <div class="flex gap-2 mt-8">
+          {[0, 1, 2].map(i => (
+            <button @click={`heroSlide = ${i}`} :class={`heroSlide === ${i} ? 'bg-primary w-8' : 'bg-primary/30 w-3'`} class="h-3 rounded-full transition-all cursor-pointer" aria-label={`Slide ${i + 1}`}></button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 2: Valores -->
+  <section id="valores" class="py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Por qué escogernos</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Confianza y Excelencia</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <FeatureCard
+          icon="heart"
+          heading="Confianza"
+          text="Transparencia, atención oportuna y seguridad en cada procedimiento que realizamos para ti."
+        />
+        <FeatureCard
+          icon="smile"
+          heading="Cambios Visibles"
+          text="Nuestros pacientes son nuestra mejor carta de presentación. Resultados que hablan por sí solos."
+        />
+        <FeatureCard
+          icon="stethoscope"
+          heading="Crea tu Mejor Versión"
+          text="Dale vida a tu rostro, conoce el mejor tratamiento odontológico y estético para ti."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 3: Acerca de nosotros + Video -->
+  <section class="py-20 bg-primary text-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-8">
+        <span class="text-sm font-semibold uppercase tracking-widest opacity-80" style="letter-spacing: 1.75px;">Acerca de nosotros</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-white">En la clínica odontológica Maryllen Guevara Márquez</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="space-y-4 text-white/80">
+          <p class="text-lg leading-relaxed">
+            Somos un grupo certificado de especialistas en salud oral y estética orofacial con sede en Pasto, Nariño. Nuestra clínica ofrece todo tipo de servicios odontológicos con la más alta calidad, tecnología de punta y la calidez humana que nos caracteriza.
+          </p>
+          <p class="leading-relaxed">
+            Brindamos atención integral, oportuna y de calidad a los pacientes que depositan su confianza en nuestras manos. Cada tratamiento es diseñado de manera personalizada, garantizando resultados que superan las expectativas. Nos enorgullece servir a la comunidad pastusa desde el corazón de la ciudad.
+          </p>
+        </div>
+        <div>
+          <VideoPopup
+            videoUrl="https://youtu.be/XgTCAUSig8Y"
+            poster="/poster-video.jpg"
+            class="mx-auto max-w-md"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 4: Nuestros Servicios -->
+  <section id="servicios" class="py-20 bg-bg-light">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Nuestros Servicios</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Servicios en nuestra Clínica</h2>
+        <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Nuestra clínica ofrece todo tipo de servicios odontológicos para cuidar tu salud oral y embellecer tu sonrisa.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map(s => (
+          <a href={`/servicios/${s.id}`} class="bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 hover:border-primary/20 transition-all group overflow-hidden">
+            <div class="aspect-[4/3] overflow-hidden bg-gray-100">
+              {serviceImages[s.id] ? (
+                <img src={serviceImages[s.id]} alt={s.data.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              ) : (
+                <div class="w-full h-full flex items-center justify-center text-gray-400">
+                  <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                </div>
+              )}
+            </div>
+            <div class="p-5">
+              <h3 class="text-lg font-semibold text-text-dark mb-1 group-hover:text-primary transition-colors">{s.data.title}</h3>
+              <p class="text-sm text-gray-600">{s.data.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 5: CTA WhatsApp -->
+  <section class="py-20 bg-primary text-white text-center">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">¿Escríbenos para programar una cita?</h2>
+      <p class="text-lg text-white/80 max-w-2xl mx-auto mb-8">
+        Contáctanos ahora y agenda tu consulta. Estamos en la Cra 34 #19-76, Pasto. Nuestro equipo está listo para atenderte.
+      </p>
+      <a href="https://api.whatsapp.com/send?phone=573105367290&text=%C2%BFEn%20qu%C3%A9%20podemos%20ayudarte%3F" target="_blank" rel="noopener noreferrer" class="bg-white text-primary font-semibold px-8 py-3 rounded-full hover:bg-gray-100 transition-colors inline-block">¿En qué podemos ayudarte?</a>
+    </div>
+  </section>
+
+  <!-- Sección 7: Testimonios -->
+  <section class="py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Testimonios</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Lo que dicen nuestros pacientes</h2>
+        <p class="text-gray-600 mt-2">La satisfacción de nuestros pacientes es nuestro mayor orgullo</p>
+      </div>
+      <TestimonialCarousel testimonials={testimonials} />
+    </div>
+  </section>
+
+  <!-- Sección 8: Instagram Feed -->
+  <section class="py-20 bg-bg-light">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Instagram</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Síguenos en Instagram</h2>
+        <p class="text-gray-600 mt-2">Descubre nuestros casos clínicos, tips de salud oral y más.</p>
+      </div>
+      <div class="text-center">
+        <a href="https://www.instagram.com/dra.maryllen_guevara/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          @dra.maryllen_guevara
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

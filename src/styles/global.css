@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #002345;
+  --color-primary-light: #003560;
+  --color-accent: #c6a279;
+  --color-accent-light: #d4b894;
+  --color-teal: #52CBCB;
+  --color-bg-light: #f5f5f5;
+  --color-text-dark: #002345;
+  --color-text-muted: #9babb8;
+  --color-border: #dadada;
+}
+
+body {
+  font-family: "Nunito Sans", "Poppins", system-ui, sans-serif;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Nunito Sans", "Poppins", system-ui, sans-serif;
+  font-weight: 700;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose li strong {
+  color: var(--color-text-dark);
+}
+
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.1) translate(-1%, -1%);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 20s ease-in-out infinite alternate;
+}
+
+.hero-overlay-gradient {
+  background: linear-gradient(135deg, rgba(0, 35, 69, 0.92) 0%, rgba(0, 35, 69, 0.7) 100%);
+}
