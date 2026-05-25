@@ -27,3 +27,6 @@ sessions/
 
 # Large WordPress backup
 *.wpress
+
+# Project improvement plan
+PLAN_MEJORA.md
