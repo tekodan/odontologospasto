@@ -20,6 +20,33 @@ const serviceImages: Record<string, string> = {
   'estetica-orofacial': '/images/servicios/estetica-orofacial.jpg',
 };
 
+const faqItems = [
+  {
+    question: '¿Duele la endodoncia?',
+    answer: 'No. La endodoncia se realiza bajo anestesia local, por lo que no sentirás dolor durante el procedimiento. De hecho, la endodoncia alivia el dolor que ya tienes por la infección. Después del tratamiento, es normal una ligera molestia que desaparece en 1 o 2 días con analgésicos suaves.',
+  },
+  {
+    question: '¿A qué edad debo llevar a mi hijo al odontólogo por primera vez?',
+    answer: 'La Sociedad Colombiana de Odontopediatría recomienda que los niños tengan su primera visita al odontólogo cuando aparece el primer diente de leche, alrededor de los 6 a 12 meses de edad. Esto permite detectar problemas tempranos y familiarizar al niño con el entorno dental.',
+  },
+  {
+    question: '¿Cuánto dura un implante dental?',
+    answer: 'Con el cuidado y la higiene adecuados, un implante dental puede durar toda la vida. Las coronas que van sobre el implante suelen tener una vida útil de 15 a 25 años. Realizar controles periódicos y mantener una buena higiene oral son clave para la longevidad del implante.',
+  },
+  {
+    question: '¿Trabajan con EPS o seguros?',
+    answer: 'Trabajamos con las principales EPS y seguros odontológicos de Colombia. Te recomendamos traer tu documento de identidad y carné de afiliación para verificar tu cobertura. También ofrecemos facilidades de pago y cotizaciones sin costo para todos nuestros tratamientos.',
+  },
+  {
+    question: '¿Ofrecen planes de pago?',
+    answer: 'Sí. Entendemos que algunos tratamientos representan una inversión importante. Por eso ofrecemos planes de pago flexibles adaptados a tus necesidades. Durante tu evaluación inicial te presentamos todas las opciones para que elijas la que mejor se ajuste a tu presupuesto.',
+  },
+  {
+    question: '¿Atienden urgencias dentales?',
+    answer: 'Sí. Atendemos urgencias odontológicas de lunes a viernes. Si tienes un dolor intenso, inflamación, fractura dental o cualquier emergencia, comunícate de inmediato por WhatsApp al +57 310 536 7290 y haremos lo posible por atenderte el mismo día.',
+  },
+];
+
 const testimonials = [
   {
     name: 'Doña María Elena Rosero',
@@ -52,12 +79,20 @@ const testimonials = [
     role: 'Pacientes frecuentes',
   },
 ];
+
+const tecnologias = [
+  { icon: 'scan', title: 'Scanner Intraoral 3D', description: 'Tecnología digital que captura la anatomía de tu boca en minutos, sin las molestias de las impresiones tradicionales.' },
+  { icon: 'camera', title: 'Radiografía Digital', description: 'Imágenes de alta precisión con mínima radiación. Resultados instantáneos para un diagnóstico más rápido y certero.' },
+  { icon: 'monitor', title: 'Cirugía Guiada por Computador', description: 'Planificación quirúrgica 3D para implantes, garantizando precisión milimétrica en cada procedimiento.' },
+  { icon: 'thermometer', title: 'Esterilización Hospitalaria', description: 'Protocolos de bioseguridad nivel hospitalario. Autoclave clase B para esterilización completa de instrumental.' },
+  { icon: 'armchair', title: 'Sillón Dental Premium', description: 'Equipos odontológicos de última generación con diseño ergonómico para máxima comodidad durante tu tratamiento.' },
+  { icon: 'lamp', title: 'Lámpara de Fotocurado LED', description: 'Tecnología de luz fría para resinas y restauraciones estéticas con resultados más naturales y duraderos.' },
+];
 ---
 
 <BaseLayout>
   <!-- Sección 1: Hero carrusel de imágenes -->
-  <section class="relative overflow-hidden min-h-[550px] md:min-h-[650px] flex items-center" x-data="{ heroSlide: 0, heroTotal: 3 }" x-init="setInterval(() => { heroSlide = (heroSlide + 1) % heroTotal }, 5000)" >
-    <!-- Imagen 1: Doctora -->
+  <section class="relative overflow-hidden min-h-[550px] md:min-h-[650px] flex items-center" x-data="{ heroSlide: 0, heroTotal: 3 }" x-init="setInterval(() => { heroSlide = (heroSlide + 1) % heroTotal }, 5000)">
     <div class="absolute inset-0" x-show="heroSlide === 0"
       x-transition:enter="transition ease-out duration-1000"
       x-transition:enter-start="opacity-0 scale-105"
@@ -67,7 +102,6 @@ const testimonials = [
       x-transition:leave-end="opacity-0 scale-105">
       <img src="/IMG_2308-1-scaled.jpg" alt="Dra. Maryllen Guevara Márquez" class="w-full h-full object-cover object-[50%_20%] md:object-[50%_15%] animate-ken-burns" />
     </div>
-    <!-- Imagen 2: Instalaciones -->
     <div class="absolute inset-0" style="display: none" x-show="heroSlide === 1"
       x-transition:enter="transition ease-out duration-1000"
       x-transition:enter-start="opacity-0 scale-105"
@@ -77,7 +111,6 @@ const testimonials = [
       x-transition:leave-end="opacity-0 scale-105">
       <img src="/images/clinica/IMG_2399.jpg" alt="Consultorio odontológico" loading="lazy" class="w-full h-full object-cover object-center animate-ken-burns" />
     </div>
-    <!-- Imagen 3: Instalaciones -->
     <div class="absolute inset-0" style="display: none" x-show="heroSlide === 2"
       x-transition:enter="transition ease-out duration-1000"
       x-transition:enter-start="opacity-0 scale-105"
@@ -87,9 +120,7 @@ const testimonials = [
       x-transition:leave-end="opacity-0 scale-105">
       <img src="/images/clinica/IMG_2440.jpg" alt="Equipos odontológicos modernos" loading="lazy" class="w-full h-full object-cover object-center animate-ken-burns" />
     </div>
-    <!-- Overlay suave para legibilidad -->
     <div class="absolute inset-0 bg-gradient-to-r from-white/85 via-white/60 to-transparent"></div>
-    <!-- Contenido -->
     <div class="relative max-w-6xl mx-auto px-4 py-20 w-full z-10">
       <div class="max-w-xl">
         <span class="text-sm font-bold uppercase tracking-widest text-primary mb-4 block" style="letter-spacing: 1.75px;">Por qué escogernos</span>
@@ -99,14 +130,13 @@ const testimonials = [
         <p class="text-lg md:text-xl text-[#486683] font-semibold mb-2">Los Mejores Especialistas Dentales en Pasto</p>
         <p class="text-base text-gray-600 mb-8 max-w-md">Calidad y Compromiso en Odontología — Dra. Maryllen Guevara Márquez</p>
         <div class="flex flex-wrap gap-4">
-          <a href="https://api.whatsapp.com/send?phone=573105367290&text=%C2%BFEn%20qu%C3%A9%20podemos%20ayudarte%3F" target="_blank" rel="noopener noreferrer" class="bg-primary hover:bg-primary-light text-white font-semibold px-8 py-3.5 rounded-full transition-colors shadow-md">
+          <a href="https://api.whatsapp.com/send?phone=573105367290&text=%C2%BFEn%20qu%C3%A9%20podemos%20ayudarte%3F" target="_blank" rel="noopener noreferrer" class="bg-primary hover:bg-primary-light text-white font-semibold px-8 py-3.5 rounded-full transition-all hover:scale-105 shadow-md hover:shadow-lg">
             Agendar Cita
           </a>
-          <a href="#servicios" class="border-2 border-primary text-primary font-semibold px-8 py-3.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+          <a href="#servicios" class="border-2 border-primary text-primary font-semibold px-8 py-3.5 rounded-full hover:bg-primary hover:text-white transition-all hover:scale-105">
             Ver Servicios
           </a>
         </div>
-        <!-- Dots de navegación -->
         <div class="flex gap-2 mt-8">
           {[0, 1, 2].map(i => (
             <button @click={`heroSlide = ${i}`} :class={`heroSlide === ${i} ? 'bg-primary w-8' : 'bg-primary/30 w-3'`} class="h-3 rounded-full transition-all cursor-pointer" aria-label={`Slide ${i + 1}`}></button>
@@ -116,8 +146,53 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- Sección 2: Valores -->
-  <section id="valores" class="py-20">
+  <!-- Sección 2: Stats Bar (Indicadores de Confianza) -->
+  <section class="bg-primary text-white py-12" x-data="{ counting: false }" x-init="setTimeout(() => counting = true, 400)">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold mb-1 text-accent">
+            <span x-text="counting ? '12+' : '0'">0</span>
+          </div>
+          <p class="text-white/70 text-xs uppercase tracking-wider font-semibold">Años de Experiencia</p>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold mb-1 text-accent">
+            <span x-text="counting ? '3.200+' : '0'">0</span>
+          </div>
+          <p class="text-white/70 text-xs uppercase tracking-wider font-semibold">Pacientes Atendidos</p>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold mb-1 text-accent">
+            <span x-text="counting ? '9' : '0'">0</span>
+          </div>
+          <p class="text-white/70 text-xs uppercase tracking-wider font-semibold">Especialidades</p>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold mb-1 text-accent">
+            <span x-text="counting ? '1.800+' : '0'">0</span>
+          </div>
+          <p class="text-white/70 text-xs uppercase tracking-wider font-semibold">Endodoncias Realizadas</p>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold mb-1 text-accent">
+            <span x-text="counting ? '420+' : '0'">0</span>
+          </div>
+          <p class="text-white/70 text-xs uppercase tracking-wider font-semibold">Implantes Colocados</p>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold mb-1 text-accent">
+            <span x-text="counting ? '650+' : '0'">0</span>
+          </div>
+          <p class="text-white/70 text-xs uppercase tracking-wider font-semibold">Diseños de Sonrisa</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Sección 3: Valores -->
+  <section id="valores" class="py-20" x-data="{ visible: true }">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-12">
         <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Por qué escogernos</span>
@@ -143,8 +218,110 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- Sección 3: Acerca de nosotros + Video -->
-  <section class="py-20 bg-primary text-white">
+  <!-- Sección 4: Conoce a la Dra. Maryllen -->
+  <section class="py-20 bg-bg-light" x-data="{ visible: true }">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="relative">
+          <img src="/IMG_2308-1-scaled.jpg" alt="Dra. Maryllen Guevara Márquez" class="rounded-2xl shadow-xl w-full max-w-md mx-auto object-cover aspect-[4/5] object-[50%_20%]" />
+          <div class="absolute -bottom-4 -right-4 md:left-auto md:right-8 bg-accent text-white rounded-xl px-6 py-3 shadow-lg text-center">
+            <span class="block text-2xl font-extrabold">12+</span>
+            <span class="text-sm">años de experiencia</span>
+          </div>
+        </div>
+        <div :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'" class="transition-all duration-700">
+          <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Conoce a tu Doctora</span>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark mb-6">Dra. Maryllen Guevara Márquez</h2>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            Odontóloga egresada de la Universidad de Antioquia, especialista en Endodoncia. Además de ser una apasionada por salvar dientes desde la raíz, he complementado mi formación en el área de Estética Dental para ofrecer a mis pacientes no solo salud, sino también armonía y belleza en su sonrisa. Desde hace más de 12 años, he dedicado mi vida a transformar sonrisas y devolver la confianza a cientos de pacientes en Pasto y Nariño.
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Creo firmemente en la odontología humana, cercana y sin dolor. Cada paciente es único y merece un plan de tratamiento personalizado que no solo resuelva su problema dental, sino que también eleve su autoestima. Como endodoncista, mi prioridad es conservar tus dientes naturales siempre que sea posible, combinando ciencia, precisión y el más alto nivel de cuidado. Mi compromiso es que al salir de esta clínica, salgas con una sonrisa nueva y la confianza renovada.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="https://api.whatsapp.com/send?phone=573105367290&text=Hola%20Dra.%20Maryllen%2C%20estoy%20interesado%2Fa%20en%20una%20valoraci%C3%B3n" target="_blank" rel="noopener noreferrer" class="bg-primary hover:bg-primary-light text-white font-semibold px-8 py-3 rounded-full transition-all hover:scale-105 shadow-md">
+              Quiero una Valoración
+            </a>
+            <a href="/contacto" class="border-2 border-primary text-primary font-semibold px-8 py-3 rounded-full hover:bg-primary hover:text-white transition-all hover:scale-105">
+              Conocer más
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 5: Instagram Feed -->
+  <section class="py-20 bg-bg-light">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Instagram</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Síguenos en Instagram</h2>
+        <p class="text-gray-600 mt-2">Descubre nuestros casos clínicos, tips de salud oral y más.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+        {[0,1,2,3,4,5].map(i => (
+          <div class="aspect-square bg-gray-200 rounded-xl flex items-center justify-center overflow-hidden relative">
+            <svg class="w-8 h-8 text-gray-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </div>
+        ))}
+      </div>
+      <div class="text-center">
+        <a href="https://www.instagram.com/dra.maryllen_guevara/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-all hover:scale-105">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          @dra.maryllen_guevara
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 6: Tu Primera Visita -->
+  <section class="py-20" x-data="{ visible: true }">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Tu Primera Visita</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Así te atendemos</h2>
+        <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Venir al odontólogo nunca fue tan fácil. Conoce nuestro proceso de atención paso a paso.</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="text-center group" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'" style="transition: all 0.7s ease 0s">
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
+            <svg class="w-10 h-10 text-primary group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-3 text-sm font-bold">1</div>
+          <h3 class="text-lg font-semibold text-text-dark mb-2">Agenda tu Cita</h3>
+          <p class="text-gray-600 text-sm">Escríbenos por WhatsApp o llama. Te asignamos un horario que se ajuste a tu rutina.</p>
+        </div>
+        <div class="text-center group" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'" style="transition: all 0.7s ease 0.15s">
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
+            <svg class="w-10 h-10 text-primary group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-3 text-sm font-bold">2</div>
+          <h3 class="text-lg font-semibold text-text-dark mb-2">Evaluación sin Costo</h3>
+          <p class="text-gray-600 text-sm">La Dra. Maryllen te examina personalmente, escucha tus necesidades y expectativas.</p>
+        </div>
+        <div class="text-center group" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'" style="transition: all 0.7s ease 0.3s">
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
+            <svg class="w-10 h-10 text-primary group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+          </div>
+          <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-3 text-sm font-bold">3</div>
+          <h3 class="text-lg font-semibold text-text-dark mb-2">Diagnóstico Digital</h3>
+          <p class="text-gray-600 text-sm">Usamos scanner 3D y radiografías digitales para un diagnóstico preciso y sin molestias.</p>
+        </div>
+        <div class="text-center group" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'" style="transition: all 0.7s ease 0.45s">
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary transition-colors">
+            <svg class="w-10 h-10 text-primary group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+          </div>
+          <div class="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-3 text-sm font-bold">4</div>
+          <h3 class="text-lg font-semibold text-text-dark mb-2">Plan Personalizado</h3>
+          <p class="text-gray-600 text-sm">Recibes tu plan de tratamiento detallado, con tiempos, costos y todas tus dudas resueltas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 6: Acerca de nosotros + Video -->
+  <section class="py-20 bg-primary text-white" x-data="{ visible: true }">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-8">
         <span class="text-sm font-semibold uppercase tracking-widest opacity-80" style="letter-spacing: 1.75px;">Acerca de nosotros</span>
@@ -170,7 +347,7 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- Sección 4: Nuestros Servicios -->
+  <!-- Sección 7: Nuestros Servicios -->
   <section id="servicios" class="py-20 bg-bg-light">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-12">
@@ -180,7 +357,7 @@ const testimonials = [
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map(s => (
-          <a href={`/servicios/${s.id}`} class="bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 hover:border-primary/20 transition-all group overflow-hidden">
+          <a href={`/servicios/${s.id}`} class="bg-white rounded-xl shadow-sm hover:shadow-lg border border-gray-100 hover:border-primary/20 transition-all group overflow-hidden hover:-translate-y-1">
             <div class="aspect-[4/3] overflow-hidden bg-gray-100">
               {serviceImages[s.id] ? (
                 <img src={serviceImages[s.id]} alt={s.data.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
@@ -200,18 +377,132 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- Sección 5: CTA WhatsApp -->
+  <!-- Sección 8: Tecnología y Equipos -->
+  <section class="py-20" x-data="{ visible: true }">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Tecnología de Punta</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Equipos y Tecnología</h2>
+        <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Invertimos en la mejor tecnología para ofrecerte diagnósticos más precisos y tratamientos más efectivos.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {tecnologias.map((t, i) => (
+          <div class="bg-bg-light rounded-xl p-6 hover:shadow-md transition-shadow group" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'" style={`transition: all 0.7s ease ${i * 0.1}s`}>
+            <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
+              <svg class="w-7 h-7 text-primary group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                {t.icon === 'scan' && <><rect width="6" height="14" x="1" y="4" rx="1"/><rect width="6" height="10" x="9" y="6" rx="1"/><rect width="6" height="16" x="17" y="2" rx="1"/></>}
+                {t.icon === 'camera' && <><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></>}
+                {t.icon === 'monitor' && <><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></>}
+                {t.icon === 'thermometer' && <><path d="M12 2a2 2 0 0 0-2 2v8.5a4.5 4.5 0 1 0 4 0V4a2 2 0 0 0-2-2Z"/><path d="M10 16.5V4"/><path d="M14 16.5V4"/><path d="M14 14.5V4"/></>}
+                {t.icon === 'armchair' && <><path d="M3 12v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M4 12V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5"/><path d="M2 12h20"/><path d="M6 14v4"/><path d="M18 14v4"/></>}
+                {t.icon === 'lamp' && <><path d="M15 14c.2-1 .8-2.3 2-4"/><path d="M9 14c-.2-1-.8-2.3-2-4"/><path d="M12 22v-4"/><path d="M8 18h8"/><path d="M12 2c-2.9 2.4-6 6.2-6 10a6 6 0 0 0 12 0c0-3.8-3.1-7.6-6-10Z"/><path d="M12 6v10"/></>}
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-text-dark mb-2">{t.title}</h3>
+            <p class="text-gray-600 text-sm">{t.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 9: FAQ / Preguntas Frecuentes -->
+  <section class="py-20 bg-bg-light">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    })} />
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Preguntas Frecuentes</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Resolvemos tus dudas</h2>
+        <p class="text-gray-600 mt-4">Todo lo que necesitas saber antes de tu visita a nuestra clínica.</p>
+      </div>
+      <div class="space-y-3" x-data="{ openFaq: null }">
+        {faqItems.map((item, i) => (
+          <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <button
+              @click="openFaq = openFaq === {i} ? null : {i}"
+              class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-gray-50 transition-colors"
+            >
+              <span class="text-lg font-semibold text-text-dark pr-4">{item.question}</span>
+              <svg :class="openFaq === {i} ? 'rotate-180' : ''" class="w-5 h-5 text-primary flex-shrink-0 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div
+              x-show={`openFaq === ${i}`}
+              x-transition:enter="transition ease-out duration-300"
+              x-transition:enter-start="opacity-0 max-h-0"
+              x-transition:enter-end="opacity-100 max-h-96"
+              x-transition:leave="transition ease-in duration-200"
+              x-transition:leave-start="opacity-100 max-h-96"
+              x-transition:leave-end="opacity-0 max-h-0"
+              class="overflow-hidden"
+              x-cloak
+            >
+              <p class="px-6 pb-5 text-gray-600 leading-relaxed">{item.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 10: Seguros y Pagos -->
+  <section class="py-20" x-data="{ visible: true }">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Facilidades de Pago</span>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Seguros y Planes de Pago</h2>
+      <p class="text-gray-600 mt-4 max-w-2xl mx-auto mb-10">
+        Trabajamos con las principales EPS y seguros odontológicos de Colombia. Consulta tu cobertura sin compromiso y conoce nuestras facilidades de pago.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-bg-light rounded-xl p-8 text-center hover:shadow-md transition-shadow" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'" style="transition: all 0.7s ease 0s">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-text-dark mb-2">EPS y Seguros</h3>
+          <p class="text-gray-600 text-sm">Revisamos tu cobertura sin costo. Trae tu carné y documento para verificar los beneficios de tu plan.</p>
+        </div>
+        <div class="bg-bg-light rounded-xl p-8 text-center hover:shadow-md transition-shadow" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'" style="transition: all 0.7s ease 0.15s">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="1" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-text-dark mb-2">Planes de Pago</h3>
+          <p class="text-gray-600 text-sm">Ofrecemos planes de financiación flexibles para que puedas realizar tu tratamiento sin preocupaciones.</p>
+        </div>
+        <div class="bg-bg-light rounded-xl p-8 text-center hover:shadow-md transition-shadow" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'" style="transition: all 0.7s ease 0.3s">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-text-dark mb-2">Múltiples Métodos</h3>
+          <p class="text-gray-600 text-sm">Aceptamos efectivo, transferencias bancarias, tarjetas débito y crédito. Tú eliges cómo pagar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 11: CTA WhatsApp -->
   <section class="py-20 bg-primary text-white text-center">
     <div class="max-w-4xl mx-auto px-4">
       <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">¿Escríbenos para programar una cita?</h2>
       <p class="text-lg text-white/80 max-w-2xl mx-auto mb-8">
         Contáctanos ahora y agenda tu consulta. Estamos en la Cra 34 #19-76, Pasto. Nuestro equipo está listo para atenderte.
       </p>
-      <a href="https://api.whatsapp.com/send?phone=573105367290&text=%C2%BFEn%20qu%C3%A9%20podemos%20ayudarte%3F" target="_blank" rel="noopener noreferrer" class="bg-white text-primary font-semibold px-8 py-3 rounded-full hover:bg-gray-100 transition-colors inline-block">¿En qué podemos ayudarte?</a>
+      <a href="https://api.whatsapp.com/send?phone=573105367290&text=%C2%BFEn%20qu%C3%A9%20podemos%20ayudarte%3F" target="_blank" rel="noopener noreferrer" class="bg-white text-primary font-semibold px-8 py-3 rounded-full hover:bg-gray-100 transition-all hover:scale-105 inline-block">
+        ¿En qué podemos ayudarte?
+      </a>
     </div>
   </section>
 
-  <!-- Sección 7: Testimonios -->
+  <!-- Sección 12: Testimonios -->
   <section class="py-20">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-12">
@@ -223,20 +514,37 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- Sección 8: Instagram Feed -->
+  <!-- Sección 13: Urgencias -->
   <section class="py-20 bg-bg-light">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <span class="text-sm font-semibold uppercase tracking-widest text-primary" style="letter-spacing: 1.75px;">Instagram</span>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2 text-text-dark">Síguenos en Instagram</h2>
-        <p class="text-gray-600 mt-2">Descubre nuestros casos clínicos, tips de salud oral y más.</p>
-      </div>
-      <div class="text-center">
-        <a href="https://www.instagram.com/dra.maryllen_guevara/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          @dra.maryllen_guevara
-        </a>
+    <div class="max-w-2xl mx-auto px-4">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+        <div class="bg-primary px-8 py-5 flex items-center gap-3">
+          <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0 ring-2 ring-white/30">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7-3 11-6 14-3-3-6-7-6-14"/><circle cx="12" cy="8" r="2"/></svg>
+          </div>
+          <div>
+            <h2 class="text-xl md:text-2xl font-bold text-white">¿Emergencia Dental?</h2>
+            <p class="text-white/70 text-sm">Atención prioritaria — mismo día</p>
+          </div>
+        </div>
+        <div class="px-8 py-6 text-center">
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Dolor intenso, fractura dental, inflamación o trauma. La Dra. Maryllen, especialista en atención de urgencias odontológicas, está lista para atenderte. <strong>Contáctanos ahora y recibe atención el mismo día.</strong>
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="https://api.whatsapp.com/send?phone=573105367290&text=Tengo%20una%20urgencia%20dental%2C%20necesito%20atenci%C3%B3n" target="_blank" rel="noopener noreferrer" class="bg-accent hover:bg-accent-light text-white font-semibold px-8 py-3.5 rounded-full transition-all hover:scale-105 inline-flex items-center justify-center gap-2 shadow-md">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Urgencia por WhatsApp
+            </a>
+            <a href="tel:+573105367290" class="border-2 border-gray-200 text-gray-700 font-semibold px-8 py-3.5 rounded-full hover:border-primary hover:text-primary transition-all hover:scale-105 inline-flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Llamar Ahora
+            </a>
+          </div>
+          <p class="text-xs text-gray-400 mt-5">Lunes a Viernes 9 AM – 7 PM · Sábados 8 AM – 1 PM</p>
+        </div>
       </div>
     </div>
   </section>
+
 </BaseLayout>

@@ -21,4 +21,16 @@ const services = defineCollection({
   }),
 });
 
-export const collections = { pages, services };
+const posts = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/posts" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.date(),
+    author: z.string().default("Dra. Maryllen Guevara Márquez"),
+    image: z.string().optional(),
+    published: z.boolean().default(true),
+  }),
+});
+
+export const collections = { pages, services, posts };
