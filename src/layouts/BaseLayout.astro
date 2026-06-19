@@ -7,6 +7,7 @@ export interface Props {
 }
 
 const { title = 'Inicio', description = 'Odontólogos Pasto — Especialistas en salud dental y estética orofacial' } = Astro.props;
+const GA_ADS_ID = import.meta.env.PUBLIC_GA_ADS_ID ?? '';
 
 const navItems = [
   { label: 'Inicio', href: '/' },
@@ -51,6 +52,24 @@ const navItems = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    {GA_ADS_ID && (
+      <script is:inline define:vars={{ GA_ADS_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          wait_for_update: 500
+        });
+        gtag('js', new Date());
+        gtag('config', GA_ADS_ID);
+      </script>
+    )}
+    {GA_ADS_ID && (
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ADS_ID}`}></script>
+    )}
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.14.1/dist/cdn.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" integrity="sha384-l8f0VcPi/M1iHPv8egOnY/15TDwqgbOR1anMIJWvU6nLRgZVLTLSaNqi/TOoT5Fh" crossorigin="anonymous"></script>
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -244,5 +263,25 @@ const navItems = [
         Agendar por WhatsApp
       </a>
     </div>
+
+    {GA_ADS_ID && (
+      <script is:inline define:vars={{ GA_ADS_ID }}>
+        // TODO: Reemplazar PLACEHOLDER_LABEL por el label de conversion real
+        // que aparece en Google Ads -> Herramientas -> Conversiones -> tu conversion -> send_to
+        // Ejemplo real: 'AW-958530650/AbCdEfGhIjKLMnOP'
+        document.addEventListener('click', function(e) {
+          var link = e.target.closest && e.target.closest('a[href*="api.whatsapp.com"], a[href*="wa.me"]');
+          if (!link || !window.gtag) return;
+          gtag('event', 'conversion', {
+            send_to: GA_ADS_ID + '/PLACEHOLDER_LABEL',
+            value: 1.0,
+            currency: 'COP'
+          });
+        });
+      </script>
+    )}
+
+    <script src="/cookie-banner.js" defer></script>
+    <link rel="stylesheet" href="/cookie-banner.css" />
   </body>
 </html>
