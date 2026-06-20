@@ -28,7 +28,7 @@ No recolectamos datos sensibles (origen racial, salud, orientación política, e
 Las finalidades del tratamiento son:
 
 - Medir el rendimiento de nuestras campañas publicitarias en Google Ads y mejorar la inversión en publicidad.
-- Recordar tus preferencias de navegación (por ejemplo, si aceptaste o rechazaste las cookies).
+- Recordar tus preferencias de navegación.
 - Responder consultas, agendar, confirmar o reprogramar citas cuando nos escribes por WhatsApp.
 - Cumplir con obligaciones legales y contables aplicables en Colombia.
 
@@ -56,25 +56,27 @@ Responderemos tu solicitud en un plazo máximo de **10 días hábiles** contados
 
 ## 5. ¿Qué cookies y tecnologías similares usamos?
 
-Este sitio utiliza cookies propias y de terceros con la finalidad de medir el rendimiento publicitario. A continuación, te explicamos cada una:
+Este sitio utiliza cookies de medición publicitaria con la finalidad de mejorar nuestras campañas en Google. A continuación, te explicamos cada una:
 
 ### Google Ads (gtag.js)
 
-Utilizamos la etiqueta **Google Ads** con el ID `AW-958530650` para medir las conversiones (por ejemplo, cuando un visitante hace click en un botón de WhatsApp) y poder mejorar nuestras campañas publicitarias. Esta cookie solo se activa si nos das tu consentimiento a través del banner de cookies.
+Utilizamos la etiqueta **Google Ads** con el ID `AW-958530650` para medir las conversiones (por ejemplo, cuando un visitante hace click en un botón de WhatsApp) y poder mejorar nuestras campañas publicitarias. Esta cookie se activa al cargar el sitio web.
 
 Para más información, puedes consultar la [política de Google sobre publicidad](https://policies.google.com/technologies/ads).
 
-### Consent Mode v2
+### ¿Cómo desactivar las cookies de Google?
 
-Implementamos el modo de consentimiento de Google (Consent Mode v2) para respetar tu decisión: si rechazas, las cookies publicitarias no se utilizan para rastrearte.
+Si no deseás que Google Ads mida tu navegación en este sitio, podés:
 
-### ¿Cómo rechazar o cambiar tu decisión?
+1. **Usar el complemento de inhabilitación de Google Analytics** en tu navegador: [https://tools.google.com/dlpage/gaoptout](https://tools.google.com/dlpage/gaoptout)
+2. **Gestionar las cookies de publicidad personalizada** desde [https://adssettings.google.com](https://adssettings.google.com)
+3. **Bloquear cookies de terceros** desde la configuración de tu navegador (Chrome, Firefox, Safari, etc.)
 
-Puedes cambiar tu decisión en cualquier momento limpiando las cookies de tu navegador desde la configuración del mismo. La próxima vez que visites el sitio, el banner de cookies volverá a aparecerte para que elijas nuevamente.
+Tené en cuenta que si optás por alguna de estas opciones, no vamos a poder medir las conversiones que generes en nuestro sitio.
 
 ## 6. Cambios a esta política
 
-Podemos modificar esta política para reflejar cambios legales, técnicos o de funcionamiento del sitio. Cuando lo hagamos, actualizaremos la fecha de "Última actualización" en la parte superior de esta página. Te recomendamos revisarla periódicamente.
+Podemos modificar esta política para reflejar cambios legales, técnicos o de funcionamiento del sitio. Cuando lo hagamos, actualizaremos la fecha en la parte superior de esta página. Te recomendamos revisarla periódicamente.
 
 ## 7. Marco legal aplicable
 

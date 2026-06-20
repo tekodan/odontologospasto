@@ -57,11 +57,10 @@ const navItems = [
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('consent', 'default', {
-          ad_storage: 'denied',
-          ad_user_data: 'denied',
-          ad_personalization: 'denied',
-          analytics_storage: 'denied',
-          wait_for_update: 500
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted'
         });
         gtag('js', new Date());
         gtag('config', GA_ADS_ID);
@@ -268,19 +267,26 @@ const navItems = [
       <script is:inline define:vars={{ GA_ADS_ID }}>
         // Conversion: "Envio de formulario para clientes potenciales" (Click WhatsApp)
         // send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD'
-        document.addEventListener('click', function(e) {
-          var link = e.target.closest && e.target.closest('a[href*="api.whatsapp.com"], a[href*="wa.me"]');
-          if (!link || !window.gtag) return;
-          gtag('event', 'conversion', {
-            send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD',
-            value: 1.0,
-            currency: 'COP'
+        // Detecta cualquier click que lleve a WhatsApp por:
+        // 1. href que contenga api.whatsapp.com o wa.me (links directos)
+        // 2. href con el numero de telefono 573105367290 (links custom/redirects)
+        // 3. data-wa="true" (botones que disparan WhatsApp via JS sin href)
+        (function() {
+          var WA_NUMBER = '573105367290';
+          var CONVERSION_SEND_TO = 'AW-958530650/D8LFCL-PnsIcENqIIMkD';
+          var SELECTOR = 'a[href*="api.whatsapp.com"], a[href*="wa.me"], a[href*="' + WA_NUMBER + '"], [data-wa="true"]';
+          document.addEventListener('click', function(e) {
+            if (!e.target || !e.target.closest) return;
+            var link = e.target.closest(SELECTOR);
+            if (!link || typeof window.gtag !== 'function') return;
+            window.gtag('event', 'conversion', {
+              send_to: CONVERSION_SEND_TO,
+              value: 1.0,
+              currency: 'COP'
+            });
           });
-        });
+        })();
       </script>
     )}
-
-    <script src="/cookie-banner.js" defer></script>
-    <link rel="stylesheet" href="/cookie-banner.css" />
   </body>
 </html>
