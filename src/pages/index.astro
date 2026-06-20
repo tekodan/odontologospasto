@@ -430,11 +430,11 @@ const tecnologias = [
         {faqItems.map((item, i) => (
           <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
             <button
-              @click="openFaq = openFaq === {i} ? null : {i}"
+              @click={`openFaq = openFaq === ${i} ? null : ${i}`}
               class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-gray-50 transition-colors"
             >
               <span class="text-lg font-semibold text-text-dark pr-4">{item.question}</span>
-              <svg :class="openFaq === {i} ? 'rotate-180' : ''" class="w-5 h-5 text-primary flex-shrink-0 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+              <svg :class={`openFaq === ${i} ? 'rotate-180' : ''`} class="w-5 h-5 text-primary flex-shrink-0 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
             </button>
             <div
               x-show={`openFaq === ${i}`}

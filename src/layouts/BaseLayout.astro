@@ -55,7 +55,7 @@ const navItems = [
     {GA_ADS_ID && (
       <script is:inline define:vars={{ GA_ADS_ID }}>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        window.gtag = function(){dataLayer.push(arguments);};
         gtag('consent', 'default', {
           ad_storage: 'granted',
           ad_user_data: 'granted',
@@ -268,6 +268,7 @@ const navItems = [
         // Conversion: "Envio de formulario para clientes potenciales" (Click WhatsApp)
         // send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD'
         // Detecta cualquier click a un link de WhatsApp (capture phase, antes que otros handlers)
+        // Pushea directo a dataLayer para que funcione aunque gtag.js no haya cargado aún.
         document.addEventListener('click', function(e) {
           var el = e.target;
           while (el && el !== document) {
@@ -276,21 +277,14 @@ const navItems = [
               if (href.indexOf('api.whatsapp.com') !== -1 ||
                   href.indexOf('wa.me') !== -1 ||
                   href.indexOf('573105367290') !== -1) {
-                if (typeof window.gtag === 'function') {
-                  window.gtag('event', 'conversion', {
-                    send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD',
-                    value: 1.0,
-                    currency: 'COP'
-                  });
-                  window.dataLayer = window.dataLayer || [];
-                  window.dataLayer.push({
-                    event: 'wa_conversion',
-                    send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD'
-                  });
-                  console.log('[WA conversion] Fired for:', href);
-                } else {
-                  console.warn('[WA conversion] gtag not loaded yet');
-                }
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  event: 'conversion',
+                  send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD',
+                  value: 1.0,
+                  currency: 'COP'
+                });
+                console.log('[WA conversion] Pushed to dataLayer:', href);
                 return;
               }
             }

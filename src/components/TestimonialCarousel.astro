@@ -10,9 +10,10 @@ export interface Props {
 }
 
 const { testimonials } = Astro.props;
+const total = testimonials.length;
 ---
 
-<div class="relative" x-data="{ active: 0 }" x-init="setInterval(() => { active = (active + 1) % testimonials.length }, 5000)">
+<div class="relative" x-data={`{ active: 0, total: ${total} }`} x-init={`setInterval(() => { active = (active + 1) % total }, 5000)`}>
   <div class="max-w-3xl mx-auto px-4 text-center relative">
     {testimonials.map((t, i) => (
       <div
