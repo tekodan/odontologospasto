@@ -264,28 +264,39 @@ const navItems = [
     </div>
 
     {GA_ADS_ID && (
-      <script is:inline define:vars={{ GA_ADS_ID }}>
+      <script is:inline>
         // Conversion: "Envio de formulario para clientes potenciales" (Click WhatsApp)
         // send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD'
-        // Detecta cualquier click que lleve a WhatsApp por:
-        // 1. href que contenga api.whatsapp.com o wa.me (links directos)
-        // 2. href con el numero de telefono 573105367290 (links custom/redirects)
-        // 3. data-wa="true" (botones que disparan WhatsApp via JS sin href)
-        (function() {
-          var WA_NUMBER = '573105367290';
-          var CONVERSION_SEND_TO = 'AW-958530650/D8LFCL-PnsIcENqIIMkD';
-          var SELECTOR = 'a[href*="api.whatsapp.com"], a[href*="wa.me"], a[href*="' + WA_NUMBER + '"], [data-wa="true"]';
-          document.addEventListener('click', function(e) {
-            if (!e.target || !e.target.closest) return;
-            var link = e.target.closest(SELECTOR);
-            if (!link || typeof window.gtag !== 'function') return;
-            window.gtag('event', 'conversion', {
-              send_to: CONVERSION_SEND_TO,
-              value: 1.0,
-              currency: 'COP'
-            });
-          });
-        })();
+        // Detecta cualquier click a un link de WhatsApp (capture phase, antes que otros handlers)
+        document.addEventListener('click', function(e) {
+          var el = e.target;
+          while (el && el !== document) {
+            if (el.tagName === 'A' && el.href) {
+              var href = el.href;
+              if (href.indexOf('api.whatsapp.com') !== -1 ||
+                  href.indexOf('wa.me') !== -1 ||
+                  href.indexOf('573105367290') !== -1) {
+                if (typeof window.gtag === 'function') {
+                  window.gtag('event', 'conversion', {
+                    send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD',
+                    value: 1.0,
+                    currency: 'COP'
+                  });
+                  window.dataLayer = window.dataLayer || [];
+                  window.dataLayer.push({
+                    event: 'wa_conversion',
+                    send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD'
+                  });
+                  console.log('[WA conversion] Fired for:', href);
+                } else {
+                  console.warn('[WA conversion] gtag not loaded yet');
+                }
+                return;
+              }
+            }
+            el = el.parentElement;
+          }
+        }, true);
       </script>
     )}
   </body>
