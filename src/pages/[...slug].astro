@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   const pages = await getCollection('pages', ({ data }) => data.published);
   const services = await getCollection('services', ({ data }) => data.published);
   return [...pages, ...services].map(entry => ({
-    params: { slug: entry.collection === 'pages' ? entry.id : `servicios/${entry.id}` },
+    params: { slug: entry.collection === 'pages' ? entry.id : `service/${entry.id}` },
     props: { entry },
   }));
 }
@@ -18,7 +18,7 @@ const isService = entry.collection === 'services';
 const currentUrl = Astro.url.pathname;
 
 const serviceImages: Record<string, string> = {
-  'endodoncia': '/images/servicios/endodoncia.jpg',
+  'endodoncia-pasto': '/images/servicios/endodoncia.jpg',
   'periodoncia': '/images/servicios/periodoncia.jpeg',
   'estetica-dental': '/images/servicios/estetica-dental.jpeg',
   'rehabilitacion-oral': '/images/servicios/rehabilitacion-oral.jpeg',
@@ -30,7 +30,7 @@ const serviceImages: Record<string, string> = {
 };
 
 const servicesFaq: Record<string, Array<{question: string; answer: string}>> = {
-  'endodoncia': [
+  'endodoncia-pasto': [
     { question: '¿Cuántas sesiones necesita una endodoncia?', answer: 'La mayoría de endodoncias se completan en 1 o 2 sesiones, dependiendo de la complejidad del caso. En dientes con un solo conducto, generalmente basta con una sesión. La Dra. Maryllen, como especialista en endodoncia, evalúa cada caso para darte un plan de tratamiento preciso.' },
     { question: '¿Puedo conducir o trabajar después de una endodoncia?', answer: 'Sí. El procedimiento se realiza bajo anestesia local, por lo que puedes retomar tus actividades normales inmediatamente después. Es posible que sientas una leve molestia que se controla con analgésicos de venta libre, pero no afecta tu capacidad para conducir o trabajar.' },
     { question: '¿Es mejor hacer una endodoncia o extraer el diente?', answer: 'Siempre que sea posible, la endodoncia es la mejor opción. Conservar tu diente natural mantiene la función masticatoria, evita el desplazamiento de dientes vecinos y preserva la estructura ósea. La extracción solo se recomienda cuando el diente no puede salvarse.' },

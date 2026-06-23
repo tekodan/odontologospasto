@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import LegalBadge from '../components/LegalBadge.astro';
 
 export interface Props {
   title?: string;
@@ -14,15 +15,15 @@ const navItems = [
   {
     label: 'Servicios', href: '#',
     children: [
-      { label: 'Endodoncia', href: '/servicios/endodoncia' },
-      { label: 'Periodoncia', href: '/servicios/periodoncia' },
-      { label: 'Estética Dental', href: '/servicios/estetica-dental' },
-      { label: 'Rehabilitación Oral', href: '/servicios/rehabilitacion-oral' },
-      { label: 'Cirugía Oral y Maxilofacial', href: '/servicios/cirugia-oral-y-maxilofacial' },
-      { label: 'Implantología Dental', href: '/servicios/implantologia-dental' },
-      { label: 'Ortodoncia', href: '/servicios/ortodoncia' },
-      { label: 'Odontopediatría', href: '/servicios/odontopediatria' },
-      { label: 'Estética Orofacial', href: '/servicios/estetica-orofacial' },
+      { label: 'Endodoncia', href: '/service/endodoncia-pasto' },
+      { label: 'Periodoncia', href: '/service/periodoncia' },
+      { label: 'Estética Dental', href: '/service/estetica-dental' },
+      { label: 'Rehabilitación Oral', href: '/service/rehabilitacion-oral' },
+      { label: 'Cirugía Oral y Maxilofacial', href: '/service/cirugia-oral-y-maxilofacial' },
+      { label: 'Implantología Dental', href: '/service/implantologia-dental' },
+      { label: 'Ortodoncia', href: '/service/ortodoncia' },
+      { label: 'Odontopediatría', href: '/service/odontopediatria' },
+      { label: 'Estética Orofacial', href: '/service/estetica-orofacial' },
     ]
   },
   { label: 'Blog', href: '/blog' },
@@ -79,6 +80,37 @@ const navItems = [
       "url": "https://odontologospasto.com.co",
       "telephone": "+573105367290",
       "email": "guevaramarquezmaryllen071448@gmail.com",
+      "identifier": "1151934866",
+      "founder": {
+        "@type": "Person",
+        "name": "Maryllen Guevara Márquez",
+        "jobTitle": "Odontóloga — Especialista en Endodoncia",
+        "identifier": "1151934866",
+        "telephone": "+573105367290",
+        "email": "guevaramarquezmaryllen071448@gmail.com"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Habilitación Odontología General (RETHUS)",
+          "value": "DHSS0592606",
+          "issuedBy": { "@type": "Organization", "name": "Ministerio de Salud y Protección Social de Colombia" },
+          "validFrom": "2023-11-03"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Habilitación Endodoncia (RETHUS)",
+          "value": "DHSS0594740",
+          "issuedBy": { "@type": "Organization", "name": "Ministerio de Salud y Protección Social de Colombia" },
+          "validFrom": "2023-10-09"
+        }
+      ],
+      "medicalSpecialty": [
+        "Dentistry",
+        "Endodontics",
+        "Cosmetic Dentistry",
+        "Prosthodontics"
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Cra 34 #19-76",
@@ -212,16 +244,24 @@ const navItems = [
 
     <footer class="bg-primary text-white">
       <div class="max-w-6xl mx-auto px-4 py-12">
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <img src="/logo-light.png" alt="Odontólogos Pasto" class="h-14 w-auto mb-4" style="filter: brightness(0) invert(1);" />
             <p class="text-white/80 text-sm">Clínica odontológica especializada en salud oral y estética orofacial. Brindamos atención integral y de calidad en el corazón de Pasto.</p>
           </div>
           <div>
             <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-white/90">Enlaces</h4>
-            <div class="grid grid-cols-2 gap-2 text-sm text-white/70">
+            <div class="flex flex-col gap-2 text-sm text-white/70">
               <a href="/blog" class="hover:text-white transition-colors">Blog</a>
               <a href="/contacto" class="hover:text-white transition-colors">Contacto</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-white/90">Legal</h4>
+            <div class="flex flex-col gap-2 text-sm text-white/70">
+              <a href="/politica-de-cookies" class="hover:text-white transition-colors">Política de Cookies</a>
+              <a href="/politica-de-privacidad" class="hover:text-white transition-colors">Política de Privacidad</a>
+              <a href="/aviso-legal" class="hover:text-white transition-colors">Aviso Legal</a>
             </div>
           </div>
           <div>
@@ -243,6 +283,7 @@ const navItems = [
             </div>
           </div>
         </div>
+        <LegalBadge />
         <div class="border-t border-white/15 mt-8 pt-6 text-center text-sm text-white/50">
           &copy; {new Date().getFullYear()} Odontólogos Pasto — Maryllen Guevara Márquez<br/>
           <span class="text-white/30 text-xs">Página hecha por <a href="https://danialva.com" target="_blank" rel="noopener noreferrer" class="hover:text-white/50 transition-colors">danialva.com</a></span>
