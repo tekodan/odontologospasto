@@ -306,10 +306,6 @@ const navItems = [
 
     {GA_ADS_ID && (
       <script is:inline>
-        // Conversion: "Envio de formulario para clientes potenciales" (Click WhatsApp)
-        // send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD'
-        // Detecta cualquier click a un link de WhatsApp (capture phase, antes que otros handlers)
-        // Pushea directo a dataLayer para que funcione aunque gtag.js no haya cargado aún.
         document.addEventListener('click', function(e) {
           var el = e.target;
           while (el && el !== document) {
@@ -318,14 +314,11 @@ const navItems = [
               if (href.indexOf('api.whatsapp.com') !== -1 ||
                   href.indexOf('wa.me') !== -1 ||
                   href.indexOf('573105367290') !== -1) {
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({
-                  event: 'conversion',
-                  send_to: 'AW-958530650/D8LFCL-PnsIcENqIIMkD',
+                gtag('event', 'conversion', {
+                  send_to: 'AW-958530650/UWcgCMXqms0cENqIiMkD',
                   value: 1.0,
                   currency: 'COP'
                 });
-                console.log('[WA conversion] Pushed to dataLayer:', href);
                 return;
               }
             }
